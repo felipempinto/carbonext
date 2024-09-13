@@ -7,6 +7,8 @@ class DataConfig:
         self.data_name = data_name
         if data_name == 'LEVIR':
             self.root_dir = 'path to the root of LEVIR-CD dataset'
+        elif data_name == 'deforestation':
+            self.root_dir = '../deforestation/data/chips'
         elif data_name == 'quick_start':
             self.root_dir = './samples/'
         else:

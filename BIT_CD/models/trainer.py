@@ -35,9 +35,10 @@ class CDTrainer():
         self.lr = args.lr
 
         # define optimizers
-        self.optimizer_G = optim.SGD(self.net_G.parameters(), lr=self.lr,
-                                     momentum=0.9,
-                                     weight_decay=5e-4)
+        # self.optimizer_G = optim.SGD(self.net_G.parameters(), lr=self.lr,
+        #                              momentum=0.9,
+        #                              weight_decay=5e-4)
+        self.optimizer_G = optim.AdamW(self.net_G.parameters(), lr=self.lr)
 
         # define lr schedulers
         self.exp_lr_scheduler_G = get_scheduler(self.optimizer_G, args)
@@ -74,6 +75,8 @@ class CDTrainer():
         self.vis_dir = args.vis_dir
 
         # define the loss functions
+        self.class_balance = torch.tensor([0.1, 0.9], dtype=torch.float32)
+
         if args.loss == 'ce':
             self._pxl_loss = cross_entropy
         elif args.loss == 'bce':
@@ -244,7 +247,7 @@ class CDTrainer():
 
     def _backward_G(self):
         gt = self.batch['L'].to(self.device).long()
-        self.G_loss = self._pxl_loss(self.G_pred, gt)
+        self.G_loss = self._pxl_loss(self.G_pred, gt,weight=self.class_balance)
         self.G_loss.backward()
 
 
