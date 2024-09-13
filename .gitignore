@@ -1,4 +1,3 @@
-BIT_CD
 venv
 deforestation/data
 
@@ -6,3 +5,9 @@ deforestation/data
 *.shx
 *.prj
 *.dbf
+
+
+BIT_CD/images
+BIT_CD/checkpoints
+BIT_CD/vis
+BIT_CD/samples
