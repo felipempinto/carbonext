@@ -1,0 +1,8 @@
+BIT_CD
+venv
+deforestation/data
+
+*.shp
+*.shx
+*.prj
+*.dbf
